@@ -6,7 +6,12 @@ set(appname openrave)
 
 find_package(YARP REQUIRED)
 
-include(YarpInstallationHelpers)
+# Load YARP modules.
+if(YARP_VERSION_SHORT VERSION_LESS 2.3.70)
+    list(APPEND CMAKE_MODULE_PATH ${YARP_MODULE_PATH})
+    include(YarpInstallationHelpers)
+endif()
+
 yarp_configure_external_installation(master-ipr)
 
 #yarp_install(FILES ymanager.ini DESTINATION ${2018_PTMR_DATA_INSTALL_DIR})  # Cleaner than ${2018_PTMR_ROBOTS_INSTALL_DIR}/../ or similar.
